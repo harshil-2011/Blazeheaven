@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dark Warriors SMP</title>
     <style>
+      /* Apply the Minecraft-like font */
+      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
       * {
         box-sizing: border-box;
         scroll-behavior: smooth;
@@ -16,6 +19,8 @@
         background-color: #0e0e0e;
         color: #f5f5f5;
         animation: fadeIn 1.2s ease-in;
+        border-radius: 15px;
+        overflow: hidden;
       }
 
       @keyframes fadeIn {
@@ -30,14 +35,17 @@
       }
 
       header {
-        background: linear-gradient(90deg, #000, #2e2e2e);
+        background: linear-gradient(90deg, #000, #1d1d1d);
         padding: 30px;
         text-align: center;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       }
 
       header h1 {
         margin: 0;
-        color: #ff3c3c;
+        font-family: 'Press Start 2P', cursive;
+        color: #1e90ff; /* Blue color */
         font-size: 3em;
         animation: fadeInText 1s ease-in-out;
       }
@@ -58,7 +66,11 @@
         justify-content: center;
         background-color: #1a1a1a;
         gap: 10px;
-        padding: 10px;
+        padding: 12px;
+        border-radius: 15px;
+        margin: 20px auto;
+        width: fit-content;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       }
 
       nav a {
@@ -66,15 +78,17 @@
         font-size: 16px;
         text-decoration: none;
         font-weight: bold;
-        padding: 10px 15px;
-        border-radius: 6px;
+        padding: 10px 20px;
+        border-radius: 8px;
         transition: background-color 0.3s, transform 0.2s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       }
 
       nav a.active,
       nav a:hover {
-        background-color: #333;
+        background-color: #1e90ff; /* Blue hover effect */
         transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
       }
 
       section {
@@ -85,6 +99,9 @@
         opacity: 0;
         transform: translateY(20px);
         transition: all 0.5s ease-in-out;
+        border-radius: 20px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.7);
       }
 
       section.active {
@@ -94,25 +111,30 @@
       }
 
       .card {
-        background-color: #1f1f1f;
+        background-color: rgba(31, 31, 31, 0.8);
         padding: 20px;
-        border-radius: 10px;
+        border-radius: 15px;
         margin-bottom: 20px;
         animation: fadeInCard 0.5s ease-in;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       }
+
       .link_wrapper {
-        background-color: #ff3c3c;
+        background-color: #1e90ff;
         padding: 10px 16px;
-        border-radius: 8px;
+        border-radius: 12px;
         width: fit-content;
         animation: fadeInCard 0.5s ease-in;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       }
+
       .link_wrapper a {
         color: #ffffff;
         font-weight: 500;
         text-transform: uppercase;
         text-decoration: none;
       }
+
       @keyframes fadeInCard {
         from {
           opacity: 0;
@@ -135,7 +157,31 @@
         padding: 15px;
         font-size: 0.9em;
         color: #aaa;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       }
+
+      /* Cool Bullet Points */
+      ul {
+        list-style-type: none;
+        padding-left: 20px;
+      }
+
+      li {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 12px;
+      }
+
+      li::before {
+        content: "⚔️";
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 18px;
+        color: #1e90ff;
+      }
+
       /* Media Query */
       @media (max-width: 600px) {
         header h1 {
@@ -194,6 +240,10 @@
           <li>No hacks, x-ray, or unfair mods.</li>
           <li>Chat must remain civil and clean.</li>
           <li>Do not exploit bugs or use duplication glitches.</li>
+          <li>Follow the server guidelines and help maintain a friendly environment.</li>
+          <li>Do not advertise other servers or websites.</li>
+          <li>Any form of hate speech, racism, or toxicity will not be tolerated.</li>
+          <li>Respect the privacy of other players. Do not share private information.</li>
         </ul>
       </div>
     </section>
@@ -217,7 +267,7 @@
         <p>Access your SMP management panel using the link below:</p>
         <div class="link_wrapper">
           🔗
-          <a href="https://play.hosting" target="_blank">Go to play.hosting</a>
+          <a href="https://play.hosting" target="_blank" onclick="autoLogin()">Go to play.hosting</a>
         </div>
         <h4>Login Credentials:</h4>
         <ul>
@@ -246,6 +296,13 @@
         const activeSection = document.getElementById(id);
         activeSection.classList.add("active");
       }
+
+      // Auto-login simulation (for demonstration purposes only)
+      function autoLogin() {
+        alert('Logging you in to the control panel with provided credentials!');
+        // In real implementation, auto-login should be handled by the play.hosting platform with secure credentials.
+      }
     </script>
   </body>
-</html>
+  </html>
+  
