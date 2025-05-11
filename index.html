@@ -1,309 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dark Warriors SMP</title>
-    <style>
-      /* Apply the Minecraft-like font */
-      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark Warriors SMP</title>
 
-      * {
-        box-sizing: border-box;
-        scroll-behavior: smooth;
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0e0e0e;
+      color: #f5f5f5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(90deg, #000, #1d1d1d);
+      padding: 30px;
+      text-align: center;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      margin: 0;
+      font-family: 'Press Start 2P', cursive;
+      color: #1e90ff;
+      font-size: 2em;
+      animation: fadeInText 1s ease-in-out;
+    }
+
+    @keyframes fadeInText {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
       }
-
-      body {
-        margin: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #0e0e0e;
-        color: #f5f5f5;
-        animation: fadeIn 1.2s ease-in;
-        border-radius: 15px;
-        overflow-y: auto; /* Enable vertical scrolling */
-        min-height: 100vh; /* Ensure full height */
+      100% {
+        opacity: 1;
+        transform: scale(1);
       }
+    }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #1a1a1a;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 15px;
+      margin: 20px auto;
+      width: fit-content;
+      flex-wrap: wrap;
+    }
 
-      header {
-        background: linear-gradient(90deg, #000, #1d1d1d);
-        padding: 30px;
-        text-align: center;
-        border-radius: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      }
+    nav a {
+      font-family: 'Press Start 2P', cursive;
+      color: #f2f2f2;
+      font-size: 10px;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: #2c2c2c;
+      transition: background-color 0.3s, transform 0.2s;
+    }
 
-      header h1 {
-        margin: 0;
-        font-family: 'Press Start 2P', cursive;
-        color: #1e90ff; /* Blue color */
-        font-size: 3em;
-        animation: fadeInText 1s ease-in-out;
-      }
+    nav a.active,
+    nav a:hover {
+      background-color: #1e90ff;
+      transform: scale(1.05);
+    }
 
-      @keyframes fadeInText {
-        0% {
-          opacity: 0;
-          transform: scale(0.9);
-        }
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
+    section {
+      display: none;
+      padding: 30px 20px;
+      max-width: 900px;
+      margin: auto;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      animation: fadeInSection 0.6s ease;
+    }
 
-      nav {
-        display: flex;
-        justify-content: center;
-        background-color: #1a1a1a;
-        gap: 10px;
-        padding: 12px;
-        border-radius: 15px;
-        margin: 20px auto;
-        width: fit-content;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      }
+    section.active {
+      display: block;
+    }
 
-      nav a {
-        color: #f2f2f2;
-        font-size: 16px;
-        text-decoration: none;
-        font-weight: bold;
-        padding: 10px 20px;
-        border-radius: 8px;
-        transition: background-color 0.3s, transform 0.2s;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      }
-
-      nav a.active,
-      nav a:hover {
-        background-color: #1e90ff; /* Blue hover effect */
-        transform: scale(1.05);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-      }
-
-      section {
-        display: none;
-        padding: 30px 20px;
-        max-width: 900px;
-        margin: auto;
+    @keyframes fadeInSection {
+      from {
         opacity: 0;
         transform: translateY(20px);
-        transition: all 0.5s ease-in-out;
-        border-radius: 20px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        background: rgba(0, 0, 0, 0.7);
       }
-
-      section.active {
-        display: block;
+      to {
         opacity: 1;
         transform: translateY(0);
       }
+    }
 
-      .card {
-        background-color: rgba(31, 31, 31, 0.8);
-        padding: 20px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-        animation: fadeInCard 0.5s ease-in;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    .card {
+      background-color: rgba(31, 31, 31, 0.8);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .highlight {
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 20px;
+    }
+
+    li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 12px;
+    }
+
+    li::before {
+      content: "⚔";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #1e90ff;
+    }
+
+    .link_wrapper {
+      background-color: #1e90ff;
+      padding: 10px 16px;
+      border-radius: 12px;
+      width: fit-content;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .link_wrapper a {
+      color: #ffffff;
+      text-transform: uppercase;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .minecraft-img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 20px;
+      animation: imgBounce 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes imgBounce {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.03);
+      }
+    }
+
+    footer {
+      background-color: #111;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+      color: #aaa;
+      border-radius: 15px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: row;
+        flex-wrap: wrap;
       }
 
-      .link_wrapper {
-        background-color: #1e90ff;
-        padding: 10px 16px;
-        border-radius: 12px;
-        width: fit-content;
-        animation: fadeInCard 0.5s ease-in;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      nav a {
+        font-size: 8px;
+        padding: 6px 10px;
       }
 
-      .link_wrapper a {
-        color: #ffffff;
-        font-weight: 500;
-        text-transform: uppercase;
-        text-decoration: none;
+      header h1 {
+        font-size: 1.5em;
       }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dark Warriors SMP</h1>
+  </header>
 
-      @keyframes fadeInCard {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+  <nav>
+    <a href="#home" class="active" onclick="showTab(event, 'home')">HOME</a>
+    <a href="#rules" onclick="showTab(event, 'rules')">RULES</a>
+    <a href="#features" onclick="showTab(event, 'features')">FEATURES</a>
+    <a href="#panel" onclick="showTab(event, 'panel')">PANEL</a>
+  </nav>
 
-      .highlight {
-        color: #00ffaa;
-        font-weight: bold;
-      }
+  <section id="home" class="active">
+    <div class="card">
+      <h2>Welcome to Dark Warriors SMP!</h2>
+      <p>Join a thriving survival multiplayer world where warriors rise, alliances form, and legends are born.</p>
+      <img src="/mnt/data/images (2).jpeg" alt="Minecraft World" class="minecraft-img">
+    </div>
+    <div class="card">
+      <h3>Server IPs</h3>
+      <p><span class="highlight">Java Edition:</span> darkwarriors15.play.hosting</p>
+      <p><span class="highlight">Bedrock Edition:</span> darkwarriors15.play.hosting</p>
+      <p><span class="highlight">Port:</span> 55974</p>
+    </div>
+  </section>
 
-      footer {
-        background-color: #111;
-        text-align: center;
-        padding: 15px;
-        font-size: 0.9em;
-        color: #aaa;
-        border-radius: 15px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      }
+  <section id="rules">
+    <div class="card">
+      <h2>SMP Rules</h2>
+      <ul>
+        <li>No griefing, stealing, or killing without reason.</li>
+        <li>Respect players and staff at all times.</li>
+        <li>No hacks, x-ray, or unfair mods.</li>
+        <li>Chat must remain civil and clean.</li>
+        <li>Do not exploit bugs or use duplication glitches.</li>
+        <li>Follow server guidelines to maintain a friendly environment.</li>
+        <li>Do not advertise other servers.</li>
+        <li>Racism, hate speech, or toxicity will not be tolerated.</li>
+        <li>Respect the privacy of other players.</li>
+      </ul>
+    </div>
+  </section>
 
-      /* Cool Bullet Points */
-      ul {
-        list-style-type: none;
-        padding-left: 20px;
-      }
+  <section id="features">
+    <div class="card">
+      <h2>SMP Features</h2>
+      <ul>
+        <li>Crossplay for Java and Bedrock</li>
+        <li>Custom biomes, dungeons, and terrain</li>
+        <li>Land claiming and war protection</li>
+        <li>Player shops, auction house, and jobs</li>
+        <li>Regular events and giveaways</li>
+      </ul>
+    </div>
+  </section>
 
-      li {
-        position: relative;
-        padding-left: 30px;
-        margin-bottom: 12px;
-      }
-
-      li::before {
-        content: "⚔️";
-        position: absolute;
-        left: 0;
-        top: 0;
-        font-size: 18px;
-        color: #1e90ff;
-      }
-
-      /* Media Query */
-      @media (max-width: 600px) {
-        header h1 {
-          font-size: 2.5em;
-        }
-        nav a {
-          font-size: 14px;
-          padding: 8px 12px;
-        }
-        section {
-          padding: 20px 10px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Dark Warriors SMP</h1>
-    </header>
-
-    <nav>
-      <a href="#home" class="active" onclick="showTab(event, 'home')">Home</a>
-      <a href="#rules" onclick="showTab(event, 'rules')">SMP Rules</a>
-      <a href="#features" onclick="showTab(event, 'features')">SMP Features</a>
-      <a href="#panel" onclick="showTab(event, 'panel')">SMP Panel</a>
-    </nav>
-
-    <section id="home" class="active">
-      <div class="card">
-        <h2>Welcome to Dark Warriors SMP! 🗡️</h2>
-        <p>
-          Join a thriving survival multiplayer world where warriors rise,
-          alliances form, and legends are born.
-        </p>
+  <section id="panel">
+    <div class="card">
+      <h2>SMP Control Panel</h2>
+      <p>Access your SMP management panel below:</p>
+      <div class="link_wrapper">
+        <a href="https://play.hosting" target="_blank" onclick="autoLogin()">Go to play.hosting</a>
       </div>
-      <div class="card">
-        <h3>🌍 Server IPs</h3>
-        <p>
-          <span class="highlight">Java Edition IP:</span>
-          darkwarriors15.play.hosting
-        </p>
-        <p>
-          <span class="highlight">Bedrock Edition IP:</span>
-          darkwarriors15.play.hosting
-        </p>
-        <p><span class="highlight">Bedrock Port:</span> 55974</p>
-      </div>
-    </section>
+      <h4>Login Credentials:</h4>
+      <ul>
+        <li><strong>Email:</strong> thedarkwarriors15@gmail.com</li>
+        <li><strong>Password:</strong> darkwarriors@123</li>
+      </ul>
+      <p style="color: orange">⚠️ Keep this information private!</p>
+    </div>
+  </section>
 
-    <section id="rules">
-      <div class="card">
-        <h2>📜 SMP Rules</h2>
-        <ul>
-          <li>No griefing, stealing, or killing without reason.</li>
-          <li>Respect players and staff at all times.</li>
-          <li>No hacks, x-ray, or unfair mods.</li>
-          <li>Chat must remain civil and clean.</li>
-          <li>Do not exploit bugs or use duplication glitches.</li>
-          <li>Follow the server guidelines and help maintain a friendly environment.</li>
-          <li>Do not advertise other servers or websites.</li>
-          <li>Any form of hate speech, racism, or toxicity will not be tolerated.</li>
-          <li>Respect the privacy of other players. Do not share private information.</li>
-        </ul>
-      </div>
-    </section>
+  <footer>
+    &copy; 2025 Dark Warriors SMP. Crafted for adventurers.
+  </footer>
 
-    <section id="features">
-      <div class="card">
-        <h2>⚙️ SMP Features</h2>
-        <ul>
-          <li>✅ Crossplay for Java and Bedrock</li>
-          <li>🌐 Custom biomes, dungeons, and terrain</li>
-          <li>🏡 Land claiming and war protection</li>
-          <li>💰 Player shops, auction house, and jobs</li>
-          <li>🎉 Regular events and giveaways</li>
-        </ul>
-      </div>
-    </section>
+  <script>
+    function showTab(e, id) {
+      e.preventDefault();
 
-    <section id="panel">
-      <div class="card">
-        <h2>🛠️ SMP Control Panel</h2>
-        <p>Access your SMP management panel using the link below:</p>
-        <div class="link_wrapper">
-          🔗
-          <a href="https://play.hosting" target="_blank" onclick="autoLogin()">Go to play.hosting</a>
-        </div>
-        <h4>Login Credentials:</h4>
-        <ul>
-          <li><strong>Email:</strong> thedarkwarriors15@gmail.com</li>
-          <li><strong>Password:</strong> darkwarriors@123</li>
-        </ul>
-        <p style="color: orange">⚠️ Please keep this information private!</p>
-      </div>
-    </section>
+      document.querySelectorAll("nav a").forEach(link => {
+        link.classList.remove("active");
+      });
+      e.target.classList.add("active");
 
-    <footer>&copy; 2025 Dark Warriors SMP. Crafted for adventurers.</footer>
+      document.querySelectorAll("section").forEach(section => {
+        section.classList.remove("active");
+      });
 
-    <script>
-      function showTab(e, id) {
-        e.preventDefault();
+      const activeSection = document.getElementById(id);
+      activeSection.classList.add("active");
+    }
 
-        document.querySelectorAll("nav a").forEach((link) => {
-          link.classList.remove("active");
-        });
-        e.target.classList.add("active");
-
-        document.querySelectorAll("section").forEach((section) => {
-          section.classList.remove("active");
-        });
-
-        const activeSection = document.getElementById(id);
-        activeSection.classList.add("active");
-      }
-
-      // Auto-login simulation (for demonstration purposes only)
-      function autoLogin() {
-        alert('Logging you in to the control panel with provided credentials!');
-        // In real implementation, auto-login should be handled by the play.hosting platform with secure credentials.
-      }
-    </script>
-  </body>
-            </html>
-            
+    function autoLogin() {
+      alert('Logging in to the control panel with the provided credentials.');
+    }
+  </script>
+</body>
+                                            </html>
+  
