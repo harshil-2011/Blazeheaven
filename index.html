@@ -1,91 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dark Warriors SMP</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
+    :root {
+      --primary: #5865F2;
+      --primary-dark: #4752C4;
+      --accent: #00FFAA;
+      --dark: #12141D;
+      --darker: #0A0B10;
+      --light: #F8F9FA;
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+    
     * {
       box-sizing: border-box;
       scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0e0e0e;
-      color: #f5f5f5;
+      font-family: 'Oxanium', sans-serif;
+      background: url('https://i.imgur.com/JVzRc8j.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--light);
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
     }
 
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(10, 11, 16, 0.9) 0%, rgba(18, 20, 29, 0.95) 100%);
+      z-index: -1;
+    }
+
+    /* Header with glowing effect */
     header {
-      background: linear-gradient(90deg, #000, #1d1d1d);
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(29, 29, 29, 0.7));
       padding: 30px;
       text-align: center;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(88, 101, 242, 0.2) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     header h1 {
       margin: 0;
       font-family: 'Press Start 2P', cursive;
-      color: #1e90ff;
-      font-size: 2em;
-      animation: fadeInText 1s ease-in-out;
+      color: var(--primary);
+      font-size: 2.5em;
+      text-shadow: 0 0 15px rgba(88, 101, 242, 0.7);
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
     }
 
-    @keyframes fadeInText {
-      0% {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
+    /* Navigation with glass effect */
     nav {
       display: flex;
       justify-content: center;
-      background-color: #1a1a1a;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       gap: 12px;
       padding: 12px;
       border-radius: 15px;
-      margin: 20px auto;
+      margin: 30px auto;
       width: fit-content;
       flex-wrap: wrap;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     nav a {
       font-family: 'Press Start 2P', cursive;
-      color: #f2f2f2;
+      color: var(--light);
       font-size: 10px;
       text-decoration: none;
-      padding: 8px 14px;
+      padding: 10px 16px;
       border-radius: 8px;
-      background: #2c2c2c;
-      transition: background-color 0.3s, transform 0.2s;
+      background: rgba(40, 40, 40, 0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(88, 101, 242, 0.3), transparent);
+      transition: 0.5s;
+    }
+
+    nav a:hover::before {
+      left: 100%;
     }
 
     nav a.active,
     nav a:hover {
-      background-color: #1e90ff;
-      transform: scale(1.05);
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
     }
 
+    /* Sections with glass effect */
     section {
       display: none;
-      padding: 30px 20px;
+      padding: 30px;
       max-width: 900px;
-      margin: auto;
+      margin: 30px auto;
       border-radius: 20px;
-      background: rgba(0, 0, 0, 0.7);
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       animation: fadeInSection 0.6s ease;
     }
 
@@ -104,19 +176,55 @@
       }
     }
 
+    /* Cards with glass effect and hover animation */
     .card {
-      background-color: rgba(31, 31, 31, 0.8);
-      padding: 20px;
+      background: rgba(31, 31, 31, 0.4);
+      padding: 25px;
       border-radius: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      margin-bottom: 25px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(88, 101, 242, 0.1), transparent);
+      z-index: -1;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h2, .card h3 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .card p {
+      line-height: 1.6;
+      margin-bottom: 15px;
     }
 
     .highlight {
-      color: #00ffaa;
+      color: var(--accent);
       font-weight: bold;
+      text-shadow: 0 0 8px rgba(0, 255, 170, 0.3);
     }
 
+    /* List styling */
     ul {
       list-style-type: none;
       padding-left: 20px;
@@ -126,105 +234,242 @@
       position: relative;
       padding-left: 30px;
       margin-bottom: 12px;
+      line-height: 1.6;
     }
 
     li::before {
-      content: "⚔";
+      content: "▹";
       position: absolute;
       left: 0;
       top: 0;
-      color: #1e90ff;
+      color: var(--primary);
+      font-size: 1.2em;
     }
 
+    /* Button styling */
     .link_wrapper {
-      background-color: #1e90ff;
-      padding: 10px 16px;
-      border-radius: 12px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      padding: 12px 24px;
+      border-radius: 8px;
       width: fit-content;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .link_wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .link_wrapper:hover::before {
+      left: 100%;
+    }
+
+    .link_wrapper:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(88, 101, 242, 0.6);
     }
 
     .link_wrapper a {
-      color: #ffffff;
+      color: var(--light);
       text-transform: uppercase;
       font-weight: bold;
       text-decoration: none;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
+    /* Image styling */
     .minecraft-img {
       width: 100%;
       border-radius: 12px;
       margin-top: 20px;
-      animation: imgBounce 2.5s ease-in-out infinite alternate;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
     }
 
-    @keyframes imgBounce {
-      0% {
-        transform: scale(1);
-      }
-      100% {
-        transform: scale(1.03);
-      }
+    .minecraft-img:hover {
+      transform: scale(1.01);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
     }
 
+    /* Footer styling */
     footer {
-      background-color: #111;
+      background: var(--glass);
       text-align: center;
-      padding: 15px;
+      padding: 20px;
       font-size: 0.9em;
       color: #aaa;
-      border-radius: 15px;
-      margin-top: 40px;
+      border-radius: 15px 15px 0 0;
+      margin-top: 60px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid var(--glass-border);
     }
 
+    footer p {
+      margin: 0;
+    }
+
+    /* Server status indicator */
+    .server-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 15px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(0, 255, 0, 0.1);
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      font-size: 0.9em;
+    }
+
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #00FF00;
+      box-shadow: 0 0 10px #00FF00;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    /* Responsive design */
     @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+      
       nav {
         flex-direction: row;
         flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px;
       }
-
+      
       nav a {
         font-size: 8px;
-        padding: 6px 10px;
+        padding: 8px 12px;
       }
+      
+      section {
+        padding: 20px;
+        margin: 20px 15px;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+    }
 
-      header h1 {
-        font-size: 1.5em;
+    /* Floating particles effect */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(88, 101, 242, 0.5);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
   <header>
     <h1>Dark Warriors SMP</h1>
+    <div class="server-status">
+      <div class="status-indicator"></div>
+      <span>Server Online - 24/7 Uptime</span>
+    </div>
   </header>
 
   <nav>
-    <a href="#home" class="active" onclick="showTab(event, 'home')">HOME</a>
-    <a href="#rules" onclick="showTab(event, 'rules')">RULES</a>
-    <a href="#features" onclick="showTab(event, 'features')">FEATURES</a>
-    <a href="#panel" onclick="showTab(event, 'panel')">PANEL</a>
-    <a href="#commands" onclick="showTab(event, 'commands')">COMMANDS</a> <!-- New Commands Tab -->
+    <a href="#home" class="active" onclick="showTab(event, 'home')">
+      <i class="fas fa-home"></i> HOME
+    </a>
+    <a href="#rules" onclick="showTab(event, 'rules')">
+      <i class="fas fa-book"></i> RULES
+    </a>
+    <a href="#features" onclick="showTab(event, 'features')">
+      <i class="fas fa-star"></i> FEATURES
+    </a>
+    <a href="#panel" onclick="showTab(event, 'panel')">
+      <i class="fas fa-cog"></i> PANEL
+    </a>
+    <a href="#commands" onclick="showTab(event, 'commands')">
+      <i class="fas fa-terminal"></i> COMMANDS
+    </a>
   </nav>
 
   <section id="home" class="active">
     <div class="card">
-      <h2>Welcome to Dark Warriors SMP!</h2>
-      <p>Join a thriving survival multiplayer world where warriors rise, alliances form, and legends are born.</p>
+      <h2><i class="fas fa-gamepad"></i> Welcome to Dark Warriors SMP!</h2>
+      <p>Join a thriving survival multiplayer world where warriors rise, alliances form, and legends are born. Experience the ultimate Minecraft survival experience with custom features and an active community.</p>
       <img src="https://i.ibb.co/rRzpp3dW/images-4.jpg" alt="Minecraft World" class="minecraft-img">
     </div>
     <div class="card">
-      <h3>Server IPs</h3>
+      <h3><i class="fas fa-server"></i> Server Connection</h3>
       <p><span class="highlight">Java Edition:</span> darkwarriors15.play.hosting</p>
       <p><span class="highlight">Bedrock Edition:</span> darkwarriors15.play.hosting</p>
-      <p><span class="highlight">Port:</span> 55974</p>      
-    <img src="https://i.postimg.cc/xCd0NbfC/standard.gif" alt="Minecraft World" class="minecraft-img">
+      <p><span class="highlight">Port:</span> 55974</p>
+      <div class="link_wrapper">
+        <a href="#" onclick="copyIP()">
+          <i class="fas fa-copy"></i> Copy IP Address
+        </a>
+      </div>
+      <img src="https://i.postimg.cc/xCd0NbfC/standard.gif" alt="Minecraft World" class="minecraft-img">
     </div>
   </section>
 
   <section id="rules">
     <div class="card">
-      <h2>SMP Rules</h2>
+      <h2><i class="fas fa-gavel"></i> SMP Rules</h2>
       <ul>
         <li>No griefing, stealing, or killing without reason.</li>
         <li>Respect players and staff at all times.</li>
@@ -235,95 +480,159 @@
         <li>Do not advertise other servers.</li>
         <li>Racism, hate speech, or toxicity will not be tolerated.</li>
         <li>Respect the privacy of other players.</li>
-        <img src="https://i.postimg.cc/P5BGjX5C/17ab60b12c431d62ae26cd8f4eafc8ab.jpg" alt="Minecraft World" class="minecraft-img">
       </ul>
+      <img src="https://i.postimg.cc/P5BGjX5C/17ab60b12c431d62ae26cd8f4eafc8ab.jpg" alt="Minecraft Rules" class="minecraft-img">
     </div>
   </section>
 
   <section id="features">
     <div class="card">
-      <h2>SMP Features</h2>
+      <h2><i class="fas fa-crown"></i> SMP Features</h2>
       <ul>
-        <li>Crossplay for Java and Bedrock</li>
-        <li>Custom biomes, dungeons, and terrain</li>
-        <li>Land claiming and war protection</li>
-        <li>Player shops, auction house, and jobs</li>
-        <li>Regular events and giveaways</li>
+        <li><span class="highlight">Crossplay</span> - Java and Bedrock players can play together</li>
+        <li><span class="highlight">Custom World</span> - Unique biomes, dungeons, and terrain generation</li>
+        <li><span class="highlight">Land Protection</span> - Claim your land and protect it from griefers</li>
+        <li><span class="highlight">Economy System</span> - Player shops, auction house, and jobs</li>
+        <li><span class="highlight">Regular Events</span> - Weekly tournaments and special events</li>
+        <li><span class="highlight">Custom Mobs</span> - Challenging new enemies to fight</li>
+        <li><span class="highlight">Quality of Life</span> - Teleportation, homes, and other useful features</li>
       </ul>
     </div>
   </section>
 
   <section id="panel">
     <div class="card">
-      <h2>SMP Control Panel</h2>
-      <p>Access your SMP management panel below:</p>
+      <h2><i class="fas fa-tachometer-alt"></i> SMP Control Panel</h2>
+      <p>Access your SMP management panel below to view server stats, manage your account, and more:</p>
       <div class="link_wrapper">
-        <a href="https://play.hosting" target="_blank" onclick="autoLogin()">Go to play.hosting</a>
+        <a href="https://play.hosting" target="_blank" onclick="autoLogin()">
+          <i class="fas fa-external-link-alt"></i> Go to play.hosting
+        </a>
       </div>
-      <h4>Login Credentials:</h4>
+      <h4><i class="fas fa-key"></i> Login Credentials:</h4>
       <ul>
         <li><strong>Email:</strong> thedarkwarriors15@gmail.com</li>
         <li><strong>Password:</strong> darkwarriors@123</li>
       </ul>
-      <p style="color: orange">⚠️ Keep this information private!</p>
+      <p style="color: orange"><i class="fas fa-exclamation-triangle"></i> ⚠️ Keep this information private!</p>
     </div>
   </section>
 
   <section id="commands">
     <div class="card">
-      <h2>Commands for Dark Warriors SMP</h2>
-      <h3>Jobs Plugin</h3>
-      <ul>
-        <li><span class="highlight">/job</span> - Open the job menu.</li>
-        <li><span class="highlight">/job browse</span> - Open the help menu for job-related commands.</li>
-        <li><span class="highlight">/job leave</span> - Leave your current job.</li>
-        <li><span class="highlight">/job category [category]</span> - Leave a specific job category.</li>
-      </ul>
-
-      <h3>Shop Commands</h3>
-      <ul>
-        <li><span class="highlight">/shop or /sh </span> - Open the shop menu.</li>
-        <li><span class="highlight">/sell all hand</span> - Sell all items currently in your hand.</li
-      </ul>
-
-      <h3>Balance Commands</h3>
-      <ul>
-        <li><span class="highlight">/balance</span> - Check your current balance.</li>
-      </ul>
-
-      <h3>Skin Commands</h3>
-      <ul>
-        <li><span class="highlight">/skin [username]</span> - Apply the skin of the specified username.</li>
-        <li><span class="highlight">/skin url (paste the link of skin)</span> - This apply skin from the url of skin.</li>
-      </ul>
+      <h2><i class="fas fa-code"></i> Server Commands</h2>
+      
+      <div class="command-category">
+        <h3><i class="fas fa-briefcase"></i> Jobs Plugin</h3>
+        <ul>
+          <li><span class="highlight">/job</span> - Open the job menu</li>
+          <li><span class="highlight">/job browse</span> - Browse available jobs</li>
+          <li><span class="highlight">/job join [job]</span> - Join a specific job</li>
+          <li><span class="highlight">/job leave</span> - Leave your current job</li>
+        </ul>
+      </div>
+      
+      <div class="command-category">
+        <h3><i class="fas fa-shopping-cart"></i> Shop Commands</h3>
+        <ul>
+          <li><span class="highlight">/shop</span> or <span class="highlight">/sh</span> - Open the shop menu</li>
+          <li><span class="highlight">/sell hand</span> - Sell items in your hand</li>
+          <li><span class="highlight">/sell all</span> - Sell all eligible items in your inventory</li>
+        </ul>
+      </div>
+      
+      <div class="command-category">
+        <h3><i class="fas fa-coins"></i> Economy Commands</h3>
+        <ul>
+          <li><span class="highlight">/balance</span> or <span class="highlight">/bal</span> - Check your balance</li>
+          <li><span class="highlight">/pay [player] [amount]</span> - Send money to another player</li>
+        </ul>
+      </div>
+      
+      <div class="command-category">
+        <h3><i class="fas fa-user-astronaut"></i> Skin Commands</h3>
+        <ul>
+          <li><span class="highlight">/skin [username]</span> - Apply a player's skin</li>
+          <li><span class="highlight">/skin url [link]</span> - Apply skin from URL</li>
+          <li><span class="highlight">/skin reset</span> - Reset to your default skin</li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <footer>
-    &copy; 2025 Dark Warriors SMP. Crafted for adventurers.
+    <p>&copy; 2025 Dark Warriors SMP. Crafted for adventurers.</p>
+    <div class="social-links">
+      <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
   </footer>
 
   <script>
+    // Tab switching
     function showTab(e, id) {
       e.preventDefault();
-
-      document.querySelectorAll("nav a").forEach(link => {
-        link.classList.remove("active");
-      });
+      document.querySelectorAll("nav a").forEach(link => link.classList.remove("active"));
       e.target.classList.add("active");
-
-      document.querySelectorAll("section").forEach(section => {
-        section.classList.remove("active");
-      });
-
-      const activeSection = document.getElementById(id);
-      activeSection.classList.add("active");
+      document.querySelectorAll("section").forEach(section => section.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
     }
 
+    // Auto login simulation
     function autoLogin() {
       alert('Logging in to the control panel with the provided credentials.');
     }
+
+    // Copy IP function
+    function copyIP() {
+      const ip = "darkwarriors15.play.hosting";
+      navigator.clipboard.writeText(ip);
+      alert(`Copied server IP: ${ip}`);
+    }
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random size
+        const size = Math.random() * 3 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random animation duration
+        particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Initialize particles when page loads
+    window.onload = function() {
+      createParticles();
+      
+      // Set active tab based on hash if present
+      if (window.location.hash) {
+        const tabId = window.location.hash.substring(1);
+        const tabLink = document.querySelector(`nav a[href="#${tabId}"]`);
+        if (tabLink) {
+          document.querySelectorAll("nav a").forEach(link => link.classList.remove("active"));
+          document.querySelectorAll("section").forEach(section => section.classList.remove("active"));
+          tabLink.classList.add("active");
+          document.getElementById(tabId).classList.add("active");
+        }
+      }
+    };
   </script>
 </body>
   </html>
-  
