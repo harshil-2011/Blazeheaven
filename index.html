@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Warriors SMP | Minecraft Server</title>
+    <title>Dark Warriors | Minecraft Server</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -88,6 +88,12 @@
         
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .nav-tab.active {
@@ -138,6 +144,17 @@
             grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
             gap: 15px;
         }
+        
+        /* Mobile menu styles */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        #mobile-menu.open {
+            max-height: 500px;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -150,7 +167,7 @@
                         <img class="h-15 w-12" src="https://i.ibb.co/ZjQyxMk/download.png" alt="Dark Warriors Logo">
                     </div>
                     <div class="ml-3">
-                        <h1 class="text-2xl font-bold text-white minecraft-font">DARK WARRIORS SMP</h1>
+                        <h1 class="text-2xl font-bold text-white minecraft-font">DARK WARRIORS</h1>
                     </div>
                 </div>
                 <div class="hidden md:block">
@@ -171,14 +188,14 @@
                 <div class="-mr-2 flex md:hidden">
                     <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
                         <span class="sr-only">Open main menu</span>
-                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-bars" id="menu-icon"></i>
                     </button>
                 </div>
             </div>
         </div>
         
         <!-- Mobile menu -->
-        <div class="hidden md:hidden" id="mobile-menu">
+        <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 nav-tab-mobile active" data-tab="home">Home</a>
                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 nav-tab-mobile" data-tab="about">About</a>
@@ -209,10 +226,10 @@
                             The ultimate survival multiplayer experience. Build, explore, and conquer with fellow warriors in our custom Minecraft world.
                         </p>
                         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center tab-link" data-tab="join">
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center" onclick="switchTab('join')">
                                 <i class="fas fa-play mr-2"></i> Join Now
                             </button>
-                            <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center tab-link" data-tab="rules">
+                            <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center" onclick="switchTab('rules')">
                                 <i class="fas fa-book mr-2"></i> Read Rules
                             </button>
                         </div>
@@ -224,7 +241,7 @@
             </div>
         </div>
 
-        <!-- About Server Section (Added to Home Page) -->
+        <!-- About Server Section -->
         <div class="py-16 bg-gray-900">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
@@ -234,7 +251,7 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
                     <div class="order-1 md:order-2">
-                        <!-- Animated Minecraft Items Grid -->
+                          <!-- Animated Minecraft Items Grid -->
                         <div class="item-grid mb-8">
                             <img src="https://i.ibb.co/0pQfxWWG/Diamond-JE3-BE3.webp" 
                                  alt="Diamond" class="minecraft-item animate-spin-slow">
@@ -244,10 +261,7 @@
                                  alt="Ender Pearl" class="minecraft-item animate-pulse-slow">
                             <img src="https://i.ibb.co/PvGgNYpX/Bow-3D.webp" 
                                  alt="Enchanted Golden Apple" class="minecraft-item animate-spin-slow" style="animation-delay: 0.5s;">
-                            <img src="https://i.ibb.co/wZHKkGvN/minecraft-PNG20.png" 
-                                 alt="Totem of Undying" class="minecraft-item animate-bounce-slow" style="animation-delay: 0.3s;">
-                            <img src="https://i.ibb.co/v4GDSRxJ/dfe25589cd0de5c.png" 
-                                 alt="Beacon" class="minecraft-item animate-pulse-slow" style="animation-delay: 0.7s;">
+                          
                         </div>
                         <img src="https://i.imgur.com/8Z3vCQk.jpg" alt="Minecraft Server Screenshot" class="rounded-xl shadow-xl w-full h-auto pixel-border">
                     </div>
@@ -314,7 +328,7 @@
                             </div>
                         </div>
                         
-                        <button class="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center tab-link" data-tab="about">
+                        <button class="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center" onclick="switchTab('about')">
                             <i class="fas fa-info-circle mr-2"></i> Learn More About Our Server
                         </button>
                     </div>
@@ -641,7 +655,7 @@
                 Become part of our growing community today. Whether you're a builder, explorer, or redstone engineer, there's a place for you here.
             </p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <button class="bg-white hover:bg-gray-200 text-blue-900 px-8 py-4 rounded-lg font-bold text-lg flex items-center justify-center tab-link" data-tab="join">
+                <button class="bg-white hover:bg-gray-200 text-blue-900 px-8 py-4 rounded-lg font-bold text-lg flex items-center justify-center" onclick="switchTab('join')">
                     <i class="fas fa-play mr-3"></i> Join Server Now
                 </button>
                 <button class="bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-lg font-bold text-lg flex items-center justify-center">
@@ -663,4 +677,142 @@
                 </div>
                 <div>
                     <h3 class="text-white text-lg font-bold mb-4">Quick Links</h3>
-                    <ul class
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm" onclick="switchTab('home')">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm" onclick="switchTab('about')">About</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm" onclick="switchTab('rules')">Rules</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm" onclick="switchTab('join')">How to Join</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4">Server Info</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400 text-sm">IP: darkwarrios15.play.hosting</li>
+                        <li class="text-gray-400 text-sm">Port: 55974</li>
+                        <li class="text-gray-400 text-sm">Version: 1.20+</li>
+                        <li class="text-gray-400 text-sm">Location: Global</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-discord text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    &copy; 2023 Dark Warriors SMP. All rights reserved.
+                </p>
+                <p class="text-gray-400 text-sm">
+                    Minecraft is a trademark of Mojang Studios. Not affiliated with Microsoft or Mojang.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update active state of nav tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.classList.add('text-gray-300');
+            });
+            
+            const activeTab = document.querySelector(`.nav-tab[data-tab="${tabId}"]`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+                activeTab.classList.remove('text-gray-300');
+            }
+            
+            // Update active state of mobile nav tabs
+            document.querySelectorAll('.nav-tab-mobile').forEach(tab => {
+                tab.classList.remove('active', 'bg-gray-900', 'text-white');
+                tab.classList.add('text-gray-300');
+            });
+            
+            const activeMobileTab = document.querySelector(`.nav-tab-mobile[data-tab="${tabId}"]`);
+            if (activeMobileTab) {
+                activeMobileTab.classList.add('active', 'bg-gray-900', 'text-white');
+                activeMobileTab.classList.remove('text-gray-300');
+            }
+            
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.classList.contains('open')) {
+                mobileMenu.classList.remove('open');
+                mobileMenu.classList.add('hidden');
+                document.getElementById('menu-icon').className = 'fas fa-bars';
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Set up tab click handlers
+        document.querySelectorAll('.nav-tab, .nav-tab-mobile').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tabId = this.getAttribute('data-tab');
+                switchTab(tabId);
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            mobileMenu.classList.toggle('hidden');
+            
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.className = 'fas fa-times';
+            } else {
+                menuIcon.className = 'fas fa-bars';
+            }
+        });
+        
+        // Copy buttons functionality
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const textToCopy = button.getAttribute('data-text');
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Change button appearance temporarily
+                    const originalHTML = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    button.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalHTML;
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
