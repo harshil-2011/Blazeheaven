@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DarkWarriors SMP | Minecraft Survival Multiplayer</title>
+    <link rel="icon" href="https://i.ibb.co/nMB3yw83/download.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         /* Custom CSS for animations and effects */
         @keyframes fadeIn {
@@ -82,18 +84,41 @@
         }
         
         .glow-text {
-            text-shadow: 0 0 5px rgba(81, 203, 238, 0.8);
+            text-shadow: 0 0 5px rgba(81, 203, 238, 0.8); /* Keeping this blue-ish as it complements well */
         }
         
-        .bg-minecraft {
-            background-image: url('https://images.unsplash.com/photo-1627855437693-dcc7b0c4ba5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        /* Moved background image and blur to a separate class for the background div */
+        .hero-background-image {
+            background-image: url('https://i.ibb.co/bgs0bLhj/DOt-HVe4v-SBCNuvlj-Qe-SW163-LNs-OMFydp-Nd-Zo-Bwf-W1mo.webp');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            filter: blur(3px); /* Adjust blur strength as needed */
+            -webkit-filter: blur(3px); /* For Safari */
+            transform: scale(1.02); /* To hide blur edges */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0; /* Lowest z-index for the background */
         }
         
+        /* The overlay needs to be on top of the blurred background */
         .bg-overlay {
             background: linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.8) 100%);
+            position: absolute; /* Ensure it's positioned relative to its parent */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1; /* Ensure it's above the blurred background but below content */
+        }
+
+        /* Ensure content is above the overlay */
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 2;
         }
         
         .modern-nav {
@@ -152,16 +177,40 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; }
         }
+
+        /* Custom font for Minecraft-like title */
+        .minecraft-title-font {
+            font-family: 'Press Start 2P', cursive;
+            /* Adjust font size and line height if needed for pixelated font */
+            line-height: 1.2; 
+        }
+
+        /* Message box for copy to clipboard */
+        .message-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .message-box.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
-    <!-- Navigation -->
     <nav class="modern-nav fixed w-full z-50">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-dragon text-white text-xl"></i>
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="https://i.ibb.co/nMB3yw83/download.png" alt="DarkWarriors SMP Logo" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/40x40/000000/FFFFFF?text=Logo'">
                     </div>
                     <span class="text-xl font-bold glow-text text-green-400">DarkWarriors SMP</span>
                 </div>
@@ -186,16 +235,16 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <div class="tab-content active fade-in" id="home">
-        <section class="bg-minecraft py-32 relative min-h-screen flex items-center pt-20">
+        <section class="py-32 relative min-h-[calc(100vh+100px)] flex items-center pt-20">
+            <div class="hero-background-image"></div>
             <div class="bg-overlay absolute inset-0"></div>
-            <div class="container mx-auto px-4 relative z-10 text-center">
+            <div class="container mx-auto px-4 relative z-10 text-center hero-content-wrapper">
                 <div class="max-w-4xl mx-auto">
-                    <div class="w-24 h-24 bg-green-500 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                        <i class="fas fa-dragon text-white text-4xl"></i>
+                    <div class="w-24 h-24 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg overflow-hidden">
+                        <img src="https://i.ibb.co/nMB3yw83/download.png" alt="DarkWarriors SMP Logo" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/96x96/000000/FFFFFF?text=Logo'">
                     </div>
-                    <h1 class="text-5xl md:text-7xl font-bold mb-6 glow-text text-green-400">DarkWarriors SMP</h1>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 glow-text text-blue-400 minecraft-title-font">DarkWarriors SMP</h1>
                     <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">The ultimate Minecraft survival experience with custom features and an amazing community!</p>
                     <div class="flex flex-wrap justify-center gap-4">
                         <button onclick="changeTab('ip')" class="minecraft-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg">
@@ -220,7 +269,7 @@
                             </div>
                             <div class="bg-gray-800 p-6 rounded-xl">
                                 <div class="text-2xl font-bold mb-2">24/7</div>
-                                <p class="text-gray-300">Uptime</p>
+                                <p class="text-300">Uptime</p>
                             </div>
                             <div class="bg-gray-800 p-6 rounded-xl">
                                 <div class="text-2xl font-bold mb-2">50+</div>
@@ -238,7 +287,6 @@
             </div>
         </section>
 
-        <!-- About Section -->
         <section class="py-20 bg-gray-900" id="about">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
@@ -271,7 +319,6 @@
             </div>
         </section>
 
-        <!-- Stats Section -->
         <section class="py-20 bg-gray-800">
             <div class="container mx-auto px-4">
                 <div class="modern-card rounded-2xl p-12">
@@ -309,12 +356,10 @@
             </div>
         </section>
         
-        <!-- Gallery Section -->
         <section class="py-20 bg-gray-900">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4 text-green-400">Server Gallery</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto">Check out some amazing builds from our players</p>
                     <div class="w-24 h-1 bg-green-500 mx-auto"></div>
                 </div>
                 
@@ -331,7 +376,7 @@
                 </div>
                 
                 <div class="text-center mt-12">
-                    <button class="minecraft-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg">
+                    <button onclick="changeTab('ip')" class="minecraft-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg">
                         <i class="fas fa-images mr-2"></i> View More
                     </button>
                 </div>
@@ -339,12 +384,10 @@
         </section>
     </div>
 
-    <!-- Rules Section -->
     <div class="tab-content fade-in py-20 bg-gray-900" id="rules">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-green-400">Server Rules</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">To ensure everyone has a great time, please follow these rules</p>
                 <div class="w-24 h-1 bg-green-500 mx-auto"></div>
             </div>
             
@@ -458,12 +501,10 @@
         </div>
     </div>
 
-    <!-- Features Section -->
     <div class="tab-content fade-in py-20 bg-gray-900" id="features">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-green-400">Server Features</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Discover what makes DarkWarriors SMP special</p>
                 <div class="w-24 h-1 bg-green-500 mx-auto"></div>
             </div>
             
@@ -528,21 +569,21 @@
                         <p class="text-sm text-gray-400">High performance hardware</p>
                     </div>
                     <div class="bg-gray-800 p-6 rounded-lg text-center hover:bg-gray-700 transition">
-                        <div class="text-purple-400 text-4xl mb-4">
+                        <div class="text-blue-400 text-4xl mb-4">
                             <i class="fas fa-shield-alt"></i>
                         </div>
                         <h4 class="font-bold text-lg">Anti-Cheat</h4>
                         <p class="text-sm text-gray-400">Advanced protection</p>
                     </div>
                     <div class="bg-gray-800 p-6 rounded-lg text-center hover:bg-gray-700 transition">
-                        <div class="text-green-400 text-4xl mb-4">
+                        <div class="text-blue-400 text-4xl mb-4">
                             <i class="fas fa-cloud"></i>
                         </div>
                         <h4 class="font-bold text-lg">Daily Backups</h4>
                         <p class="text-sm text-gray-400">Data protection</p>
                     </div>
                     <div class="bg-gray-800 p-6 rounded-lg text-center hover:bg-gray-700 transition">
-                        <div class="text-yellow-400 text-4xl mb-4">
+                        <div class="text-blue-400 text-4xl mb-4">
                             <i class="fas fa-bolt"></i>
                         </div>
                         <h4 class="font-bold text-lg">Low Latency</h4>
@@ -553,12 +594,10 @@
         </div>
     </div>
 
-    <!-- IP Address Section -->
     <div class="tab-content fade-in py-20 bg-gray-900" id="ip">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-green-400">How to Join</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Connect to our server using the information below</p>
                 <div class="w-24 h-1 bg-green-500 mx-auto"></div>
             </div>
             
@@ -568,10 +607,10 @@
                         <i class="fab fa-java mr-3"></i> Java Edition
                     </h3>
                     <div class="bg-gray-800 p-5 rounded-lg mb-6">
-                        <div class="flex justify-between items-center">
-                            <span class="font-mono text-lg">darkwarriors15.play.hosting</span>
-                            <button onclick="copyToClipboard('darkwarriors15.play.hosting')" class="text-blue-400 hover:text-blue-300 bg-gray-700 p-2 rounded-lg">
-                                <i class="fas fa-copy"></i>
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                            <span class="font-mono text-lg mb-2 md:mb-0 break-words w-full text-center md:text-left" id="java-ip">darkwarriors15.play.hosting</span>
+                            <button onclick="copyToClipboard('java-ip')" class="text-blue-400 hover:text-blue-300 bg-gray-700 p-2 rounded-lg flex-shrink-0 w-full md:w-auto mt-2 md:mt-0">
+                                <i class="fas fa-copy"></i> Copy IP
                             </button>
                         </div>
                     </div>
@@ -596,276 +635,158 @@
                     <h3 class="text-xl font-bold mb-6 text-orange-400 flex items-center">
                         <i class="fas fa-mobile-alt mr-3"></i> Bedrock Edition
                     </h3>
-                    <div class="bg-gray-800 p-5 rounded-lg mb-4">
-                        <div class="flex justify-between items-center">
-                            <span class="font-mono text-lg">darkwarriors15.play.hosting</span>
-                            <button onclick="copyToClipboard('darkwarriors15.play.hosting')" class="text-orange-400 hover:text-orange-300 bg-gray-700 p-2 rounded-lg">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
                     <div class="bg-gray-800 p-5 rounded-lg mb-6">
-                        <div class="flex justify-between items-center">
-                            <span class="font-mono text-lg">Port: 55974</span>
-                            <button onclick="copyToClipboard('55974')" class="text-orange-400 hover:text-orange-300 bg-gray-700 p-2 rounded-lg">
-                                <i class="fas fa-copy"></i>
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <span class="font-mono text-lg mb-2 md:mb-0 break-words w-full text-center md:text-left">IP: <span id="bedrock-ip">play.darkwarriorssmp.net</span></span>
+                            <button onclick="copyToClipboard('bedrock-ip')" class="text-orange-400 hover:text-orange-300 bg-gray-700 p-2 rounded-lg flex-shrink-0 w-full md:w-auto mt-2 md:mt-0">
+                                <i class="fas fa-copy"></i> Copy IP
+                            </button>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                            <span class="font-mono text-lg mb-2 md:mb-0 break-words w-full text-center md:text-left">Port: <span id="bedrock-port">19132</span></span>
+                            <button onclick="copyToClipboard('bedrock-port')" class="text-orange-400 hover:text-orange-300 bg-gray-700 p-2 rounded-lg flex-shrink-0 w-full md:w-auto mt-2 md:mt-0">
+                                <i class="fas fa-copy"></i> Copy Port
                             </button>
                         </div>
                     </div>
-                    <p class="text-gray-300 mb-6">For Minecraft Bedrock players (Mobile/Console/Windows 10)</p>
+                    <p class="text-gray-300 mb-6">For Minecraft Bedrock Edition players (Mobile/Console/Windows 10+)</p>
                     <ul class="space-y-3 text-gray-300">
                         <li class="flex items-start">
                             <div class="bg-orange-500 rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mr-3 mt-1">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
-                            <span>Version: 1.20.x (latest)</span>
+                            <span>Version: Latest Bedrock version</span>
                         </li>
                         <li class="flex items-start">
                             <div class="bg-orange-500 rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0 mr-3 mt-1">
                                 <i class="fas fa-check text-white text-xs"></i>
                             </div>
-                            <span>Cross-play with Java edition</span>
+                            <span>Cross-platform play enabled</span>
                         </li>
                     </ul>
                 </div>
             </div>
-            
-            <div class="mt-16 max-w-6xl mx-auto">
-                <h3 class="text-xl font-bold mb-8 text-center text-green-400">Connection Guide</h3>
-                <div class="modern-card p-8 rounded-xl">
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition">
-                            <div class="text-yellow-400 text-4xl mb-5 text-center">
-                                <i class="fas fa-laptop"></i>
-                            </div>
-                            <h4 class="font-bold mb-4 text-center">Java Edition</h4>
-                            <ol class="list-decimal pl-5 space-y-2 text-gray-300">
-                                <li>Open Minecraft and click "Multiplayer"</li>
-                                <li>Click "Add Server"</li>
-                                <li>Enter server details and click "Done"</li>
-                                <li>Select the server and click "Join Server"</li>
-                            </ol>
-                        </div>
-                        
-                        <div class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition">
-                            <div class="text-yellow-400 text-4xl mb-5 text-center">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                            <h4 class="font-bold mb-4 text-center">Mobile/Console</h4>
-                            <ol class="list-decimal pl-5 space-y-2 text-gray-300">
-                                <li>Go to "Servers" tab</li>
-                                <li>Scroll down and click "Add Server"</li>
-                                <li>Enter server details</li>
-                                <li>Save and connect</li>
-                            </ol>
-                        </div>
-                        
-                        <div class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition">
-                            <div class="text-yellow-400 text-4xl mb-5 text-center">
-                                <i class="fab fa-windows"></i>
-                            </div>
-                            <h4 class="font-bold mb-4 text-center">Windows 10</h4>
-                            <ol class="list-decimal pl-5 space-y-2 text-gray-300">
-                                <li>Click "Play" then "Servers"</li>
-                                <li>Click "Add Server" at the bottom</li>
-                                <li>Enter server details</li>
-                                <li>Save and connect</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- Panel Section -->
     <div class="tab-content fade-in py-20 bg-gray-900" id="panel">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-green-400">Server Panel</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Access the server control panel with your credentials</p>
-                <div class="w-24 h-1 bg-green-500 mx-auto"></div>
-            </div>
-            
-            <div class="max-w-2xl mx-auto modern-card p-10 rounded-2xl">
+        <div class="container mx-auto px-4 text-center">
+            <div class="modern-card p-12 rounded-2xl max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-green-400">Server Panel</h2>
+                <p class="text-gray-400 mb-8">
+                    Access the server management panel here. You can start the server if it's offline.
+                </p>
                 <div class="text-center mb-8">
-                    <div class="w-20 h-20 bg-green-600 rounded-xl flex items-center justify-center mx-auto shadow-lg">
-                        <i class="fas fa-user-shield text-white text-3xl"></i>
-                    </div>
-                </div>
-                
-                <div class="mb-6">
-                    <label class="block text-gray-300 mb-3 font-medium">Panel URL</label>
-                    <div class="flex">
-                        <input type="text" value="play.hosting" class="flex-grow minecraft-input text-white p-4 rounded-l-lg focus:outline-none" readonly>
-                        <button onclick="copyToClipboard('play.hosting')" class="bg-green-600 hover:bg-green-700 px-5 rounded-r-lg">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="mb-6">
-                    <label class="block text-gray-300 mb-3 font-medium">Email</label>
-                    <div class="flex">
-                        <input type="text" value="darkwarriors15@gmail.com" class="flex-grow minecraft-input text-white p-4 rounded-l-lg focus:outline-none" readonly>
-                        <button onclick="copyToClipboard('darkwarriors15@gmail.com')" class="bg-green-600 hover:bg-green-700 px-5 rounded-r-lg">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="mb-8">
-                    <label class="block text-gray-300 mb-3 font-medium">Password</label>
-                    <div class="flex">
-                        <input type="password" value="darkwarriors@123" id="password-field" class="flex-grow minecraft-input text-white p-4 rounded-l-lg focus:outline-none" readonly>
-                        <button onclick="togglePassword()" class="bg-gray-700 hover:bg-gray-600 px-5 border-l border-gray-600">
-                            <i class="fas fa-eye" id="toggle-icon"></i>
-                        </button>
-                        <button onclick="copyToClipboard('darkwarriors@123')" class="bg-green-600 hover:bg-green-700 px-5 rounded-r-lg">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="text-center mt-10">
-                    <a href="https://play.hosting" target="_blank" class="minecraft-btn inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg">
+                    <a href="https://play.hosting" target="_blank" class="minecraft-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg inline-flex items-center">
                         <i class="fas fa-external-link-alt mr-2"></i> Go to Panel
                     </a>
                 </div>
-                
-                <div class="mt-10 p-5 bg-gray-800 rounded-lg">
-                    <h4 class="font-bold text-yellow-400 mb-3 flex items-center">
-                        <i class="fas fa-exclamation-triangle mr-2"></i> Important Notice
-                    </h4>
-                    <p class="text-gray-300">This information is sensitive. Only share with trusted staff members. Regularly change your password for security.</p>
+
+                <div class="space-y-6 text-left">
+                    <div class="bg-gray-800 p-5 rounded-lg">
+                        <label for="panel-email" class="block text-gray-400 text-sm font-medium mb-2">Email:</label>
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                            <span class="font-mono text-lg mb-2 md:mb-0 break-words w-full text-center md:text-left" id="panel-email">darkwarriors15@gmail.com</span>
+                            <button onclick="copyToClipboard('panel-email')" class="text-blue-400 hover:text-blue-300 bg-gray-700 p-2 rounded-lg flex-shrink-0 w-full md:w-auto mt-2 md:mt-0">
+                                <i class="fas fa-copy"></i> Copy Email
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-800 p-5 rounded-lg">
+                        <label for="panel-password" class="block text-gray-400 text-sm font-medium mb-2">Password:</label>
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                            <span class="font-mono text-lg mb-2 md:mb-0 break-words w-full text-center md:text-left" id="panel-password">darkwarriors@123</span>
+                            <button onclick="copyToClipboard('panel-password')" class="text-blue-400 hover:text-blue-300 bg-gray-700 p-2 rounded-lg flex-shrink-0 w-full md:w-auto mt-2 md:mt-0">
+                                <i class="fas fa-copy"></i> Copy Password
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="text-6xl text-gray-600 mt-8">
+                    <i class="fas fa-tools floating"></i>
+                </div>
+                <p class="text-gray-500 text-sm mt-4">Use these credentials to log in and manage the server.</p>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-                <div>
-                    <div class="flex items-center mb-5">
-                        <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-dragon text-white"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-green-400">DarkWarriors SMP</h3>
-                    </div>
-                    <p class="text-gray-300">The ultimate Minecraft survival multiplayer experience with custom features and an amazing community.</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl font-bold mb-5 text-green-400">Quick Links</h3>
-                    <ul class="space-y-3">
-                        <li><button onclick="changeTab('home')" class="text-gray-300 hover:text-green-400 transition">Home</button></li>
-                        <li><button onclick="changeTab('rules')" class="text-gray-300 hover:text-green-400 transition">Rules</button></li>
-                        <li><button onclick="changeTab('features')" class="text-gray-300 hover:text-green-400 transition">Features</button></li>
-                        <li><button onclick="changeTab('ip')" class="text-gray-300 hover:text-green-400 transition">IP Address</button></li>
-                        <li><button onclick="changeTab('panel')" class="text-gray-300 hover:text-green-400 transition">Panel</button></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl font-bold mb-5 text-green-400">Connect With Us</h3>
-                    <div class="flex space-x-5 mb-5">
-                        <a href="#" class="text-gray-300 hover:text-green-400 text-2xl transition">
-                            <i class="fab fa-discord"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-green-400 text-2xl transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-green-400 text-2xl transition">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-green-400 text-2xl transition">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                    <div class="flex items-center text-gray-400">
-                        <i class="fas fa-envelope mr-3"></i>
-                        <span>darkwarriors15@gmail.com</span>
-                    </div>
-                </div>
+    <footer class="bg-gray-800 py-10">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-discord text-2xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-youtube text-2xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-twitter text-2xl"></i></a>
             </div>
-            
-            <div class="minecraft-divider my-10"></div>
-            
-            <div class="text-center text-gray-400">
-                <p>&copy; 2023 DarkWarriors SMP. All rights reserved.</p>
-                <p class="text-xs mt-3">Minecraft is a trademark of Mojang Studios. This server is not affiliated with Mojang or Microsoft.</p>
-            </div>
+            <p>&copy; 2023 DarkWarriors SMP. All rights reserved.</p>
+            <p class="text-sm mt-2">Minecraft is a trademark of Mojang Synergies AB.</p>
         </div>
     </footer>
 
+    <div id="messageBox" class="message-box"></div>
+
     <script>
-        // Tab functionality
+        // Function to show a message box
+        function showMessageBox(message, duration = 2000) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.classList.add('show');
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+            }, duration);
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const textToCopy = element.textContent || element.innerText;
+                const tempInput = document.createElement('textarea');
+                tempInput.value = textToCopy;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    showMessageBox('Copied: ' + textToCopy);
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                    showMessageBox('Failed to copy text.');
+                } finally {
+                    document.body.removeChild(tempInput);
+                }
+            }
+        }
+
+        // Tab switching logic
         function changeTab(tabId) {
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
-            // Show selected tab content
-            document.getElementById(tabId).classList.add('active');
-            
+
+            // Show the selected tab content
+            const selectedTab = document.getElementById(tabId);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
             // Close mobile menu if open
-            document.getElementById('mobile-menu').classList.add('hidden');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
         }
-        
+
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
         });
-        
-        // Copy to clipboard function
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                // Create and show a temporary tooltip
-                const tooltip = document.createElement('div');
-                tooltip.textContent = 'Copied!';
-                tooltip.className = 'fixed bg-green-600 text-white px-3 py-1 rounded-md text-sm';
-                tooltip.style.top = (event.clientY - 40) + 'px';
-                tooltip.style.left = (event.clientX - 20) + 'px';
-                document.body.appendChild(tooltip);
-                
-                // Remove tooltip after 1.5 seconds
-                setTimeout(() => {
-                    document.body.removeChild(tooltip);
-                }, 1500);
-            });
-        }
-        
-        // Toggle password visibility
-        function togglePassword() {
-            const passwordField = document.getElementById('password-field');
-            const toggleIcon = document.getElementById('toggle-icon');
-            
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordField.type = 'password';
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
-            }
-        }
-        
-        // Set default tab based on URL hash
-        window.addEventListener('load', function() {
-            if (window.location.hash) {
-                const tabId = window.location.hash.substring(1);
-                if (document.getElementById(tabId)) {
-                    changeTab(tabId);
-                }
-            }
+
+        // Set initial active tab on load
+        document.addEventListener('DOMContentLoaded', () => {
+            changeTab('home'); // Ensure 'home' tab is active by default
         });
     </script>
 </body>
